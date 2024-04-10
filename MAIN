@@ -26,8 +26,6 @@ CloseCallback = <function> - Function to execute when the window is closed.
 
 --Functions
 
-
-
 --FULLBRIGHT
 function FullbrighteredON()
 local lighting = game:GetService("Lighting")
@@ -53,15 +51,12 @@ function Infinitejumpersigma()
 end
 --NOFALL
 function NoFallerDamagerprosigmer()
--- Get a reference to the ReplicatedStorage service
 local replicatedStorage = game:GetService("ReplicatedStorage")
 
--- Check if the path exists
 local pathExists = pcall(function()
     return replicatedStorage.ACS_Engine.Eventos.Damage
 end)
 
--- If the path exists, delete the item
 if pathExists then
     replicatedStorage.ACS_Engine.Eventos.Damage:Destroy()
     print("Item at ReplicatedStorage.ACS_Engine.Eventos.Damage deleted successfully.")
@@ -104,7 +99,8 @@ PlayerMOddertab:AddSlider({
 	Increment = 1,
 	ValueName = "Walkspeed",
 	Callback = function(Value)
-		print(Value)
+        game.Players.LocalPlayer.Character:WaitForChild('Humanoid').WalkSpeed = Value
+		print("ihatenigger")
 	end    
 })
 
@@ -112,13 +108,6 @@ PlayerMOddertab:AddButton({
 	Name = "Remove Fall Damage",
 	Callback = function(Value)
         NoFallerDamagerprosigmer()
-  	end    
-})
-
-PlayerMOddertab:AddButton({
-	Name = "Noclip (E TO TURN IT ON AND OFF)",
-	Callback = function(Value)
-        Noclipergangstergod()
   	end    
 })
 
