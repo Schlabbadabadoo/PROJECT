@@ -13,38 +13,89 @@ IntroIcon = <string> - URL to the image you want to use in the intro animation.
 Icon = <string> - URL to the image you want displayed on the window.
 CloseCallback = <function> - Function to execute when the window is closed.
 ]]
-local Tab = Window:MakeTab({
+
+
+--Values
+
+
+
+
+
+
+
+
+--Functions
+
+
+
+--FULLBRIGHT
+function FullbrighteredON()
+local lighting = game:GetService("Lighting")
+
+local function deleteDescendants(instance)
+    for _, child in ipairs(instance:GetChildren()) do
+        child:Destroy()
+    end
+end
+
+deleteDescendants(lighting)
+
+print("Contents of Lighting deleted successfully.")
+end
+--INFJUMP
+function Infinitejumpersigma()
+    local InfiniteJumpEnabled = true
+    game:GetService("UserInputService").JumpRequest:connect(function()
+        if InfiniteJumpEnabled then
+            game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+        end
+    end)
+end
+--NOFALL
+function NoFallerDamagerprosigmer()
+-- Get a reference to the ReplicatedStorage service
+local replicatedStorage = game:GetService("ReplicatedStorage")
+
+-- Check if the path exists
+local pathExists = pcall(function()
+    return replicatedStorage.ACS_Engine.Eventos.Damage
+end)
+
+-- If the path exists, delete the item
+if pathExists then
+    replicatedStorage.ACS_Engine.Eventos.Damage:Destroy()
+    print("Item at ReplicatedStorage.ACS_Engine.Eventos.Damage deleted successfully.")
+else
+    print("Item at ReplicatedStorage.ACS_Engine.Eventos.Damage does not exist.")
+end
+end
+
+--TABS
+local PlayerMOddertab = Window:MakeTab({
 	Name = "Player Mods",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://",
 	PremiumOnly = false
 })
 
---[[
-Name = <string> - The name of the tab.
-Icon = <string> - The icon of the tab.
-PremiumOnly = <bool> - Makes the tab accessible to Sirus Premium users only.
-]]
-local Section = Tab:AddSection({
-	Name = "Player mods such as walkspeed and infjump"
+local VisualTabprosimgaskibidi = Window:MakeTab({
+	Name = "Visual",
+	Icon = "rbxassetid://",
+	PremiumOnly = false
 })
 
---[[
-Name = <string> - The name of the section.
-]]
-Tab:AddToggle({
+--SECTIONS
+
+
+--BUTTONS AND SUCH
+
+PlayerMOddertab:AddButton({
 	Name = "Inf Jump",
-	Default = false,
 	Callback = function(Value)
-		print(Value)
+        Infinitejumpersigma()
 	end    
 })
 
---[[
-Name = <string> - The name of the toggle.
-Default = <bool> - The default value of the toggle.
-Callback = <function> - The function of the toggle.
-]]
-Tab:AddSlider({
+PlayerMOddertab:AddSlider({
 	Name = "Speedhack",
 	Min = 16,
 	Max = 200,
@@ -57,13 +108,24 @@ Tab:AddSlider({
 	end    
 })
 
---[[
-Name = <string> - The name of the slider.
-Min = <number> - The minimal value of the slider.
-Max = <number> - The maxium value of the slider.
-Increment = <number> - How much the slider will change value when dragging.
-Default = <number> - The default value of the slider.
-ValueName = <string> - The text after the value number.
-Callback = <function> - The function of the slider.
-]]
+PlayerMOddertab:AddButton({
+	Name = "Remove Fall Damage",
+	Callback = function(Value)
+        NoFallerDamagerprosigmer()
+  	end    
+})
+
+PlayerMOddertab:AddButton({
+	Name = "Noclip (E TO TURN IT ON AND OFF)",
+	Callback = function(Value)
+        Noclipergangstergod()
+  	end    
+})
+
+VisualTabprosimgaskibidi:AddButton({
+	Name = "Remove fog and other things",
+	Callback = function(Value)
+        FullbrighteredON()
+  	end    
+})
 OrionLib:Init()
