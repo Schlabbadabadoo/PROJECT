@@ -5,6 +5,51 @@ local Window = OrionLib:MakeWindow({Name = "Schlubb Hub For PROJECT", HidePremiu
 --Values
 
 --Functions
+
+function Espgamer()
+	local function findNameGuiInPart(part)
+		return part:FindFirstChild("NameGui")
+	end
+	
+	local function isHead(part)
+		return part.Name == "Head"
+	end
+	
+	local function findNameGuisInModel(model)
+		local nameGuis = {}
+		for _, part in pairs(model:GetDescendants()) do
+			if part:IsA("BasePart") and isHead(part) then
+				local nameGui = findNameGuiInPart(part)
+				if nameGui then
+					table.insert(nameGuis, nameGui)
+				end
+			end
+		end
+		return nameGuis
+	end
+	
+	local function searchAndModifyNameGuis()
+		while true do
+			local models = workspace:GetChildren()
+			for _, model in pairs(models) do
+				if model.Name ~= ".Map" and model.Name ~= ".Flags" then
+					local nameGuis = findNameGuisInModel(model)
+					for _, nameGui in pairs(nameGuis) do
+						nameGui.MaxDistance = 10000000
+	
+						nameGui.AlwaysOnTop = true
+	
+						print("Changed MaxDistance and set AlwaysOnTop to true in NameGui:", nameGui:GetFullName())
+					end
+				end
+			end
+			wait(5)
+		end
+	end
+	
+	searchAndModifyNameGuis()	
+end
+
 function FullbrighteredON()
 local lighting = game:GetService("Lighting")
 
@@ -94,4 +139,13 @@ VisualTabprosimgaskibidi:AddButton({
         FullbrighteredON()
   	end    
 })
+
+VisualTabprosimgaskibidi:AddButton({
+	Name = "Esp (Kinda broken, dont spam the button to fix it it wont work)",
+	Default = false,
+	Callback = function(Value)
+		Espgamer()
+	end    
+})
+
 OrionLib:Init()
