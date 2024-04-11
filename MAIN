@@ -122,7 +122,7 @@ PlayerMOddertab:AddSlider({
 	ValueName = "Walkspeed",
 	Callback = function(Value)
         game.Players.LocalPlayer.Character:WaitForChild('Humanoid').WalkSpeed = Value
-		print("ihatenigger")
+		print("Changed ws succesfully")
 	end    
 })
 
